@@ -9,4 +9,4 @@ Python 2.6 scripts:
 
 In all 3 files one must set the working directory. Additionally, in "get_names_and_links.py" one must also set the term to scrape (line 25). You need to have BeautifulSoup installed.
 
-The variables: EPG; Party; Chairmans; Chair_Start; Chair_End; Vice_Chair; Vice_Start; Vice_End; Member; Meber_Start; Member_End; Substitute; Sub_Debut; Sub_Fin can all have more than 1 entry per cell. An MEP who was a member in three committees, e.g. will have 3 entries in the Member variable, the Member_Start variable, and the Member_End variable, where the individual entries are seperated by a semicolons.
+The variables: EPG; Party; Chairmans; Chair_Start; Chair_End; Vice_Chair; Vice_Start; Vice_End; Member; Meber_Start; Member_End; Substitute; Sub_Debut; Sub_Fin can all have more than 1 entry per cell. An MEP who was a member in three committees, e.g. will have 3 entries in the Member variable, the Member_Start variable, and the Member_End variable, where the individual entries are seperated by semicolons.
