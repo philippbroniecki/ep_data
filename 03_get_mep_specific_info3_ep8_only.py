@@ -118,7 +118,7 @@ def info_walk(tag, start_condition, stop_condition, I_want):
 						#print( datum[1] < end_time)
 						#if (len(datum)==2 and datum[1] < end_time):
 						#	print("shalala")
-
+						
 
 						# is the date in the current EP term?
 						if (len(datum)==2 and datum[1] < end_time) or (len(datum)==3 and datum[1] < end_time and datum[2] > start_time):
@@ -147,13 +147,13 @@ def info_walk(tag, start_condition, stop_condition, I_want):
 									what_to_extract[val] = element.strip()
 							#print(what_to_extract)
 							#print(len(what_to_extract))
-
-
+							
+							
 							continue
 						else:
 							continue
 					except:
-
+	
 						continue
 	if "what_to_extract" in locals():
 		if not "end_date_to_extract" in locals():
@@ -162,26 +162,26 @@ def info_walk(tag, start_condition, stop_condition, I_want):
 					end_date_to_extract = datetime.strptime("30.06.2019",'%d.%m.%Y')
 					end_date_to_extract = [end_date_to_extract.strftime('%d.%m.%Y')]
 				if len(start_date_to_extract) > 1:
-					tmp_date = datetime.strptime("30.06.2019",'%d.%m.%Y')
-					for date_idx in range(0,len(start_date_to_extract)):
+					tmp_date = datetime.strptime("30.06.2019",'%d.%m.%Y')				
+					for date_idx in range(0,len(start_date_to_extract)):  
 						#print(date_idx)
 						if date_idx == 0:
 							end_date_to_extract = [tmp_date.strftime('%d.%m.%Y')]
 						if date_idx > 0:
 							end_date_to_extract.append(tmp_date.strftime('%d.%m.%Y'))
 
-			return(what_to_extract, start_date_to_extract, end_date_to_extract)
+			return(what_to_extract, start_date_to_extract, end_date_to_extract)		
 		else:
-			return(what_to_extract, start_date_to_extract, end_date_to_extract)
+			return(what_to_extract, start_date_to_extract, end_date_to_extract)		
 	#print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#")
 	return([], [], [])
-
-
+	
+	
 
 #############################################################################
 # folders input output
 #############################################################################
-output_dir = "C:\\Users\\phili\\Documents\\GitHub\\ep_data\\output"
+output_dir = "C:\\Users\\phili\\Dropbox\\Dokumente\\London\\UCL\\Dis\\EP data\\output"
 
 # change directory
 os.chdir(output_dir)
@@ -274,9 +274,9 @@ for index, link in enumerate(links[1:]): # loop over all links
 
 	############################
 	## european party group
-	epg_tag, epg_start, epg_end = info_walk(tag = history_tag,
-		start_condition = ["Political groups"],
-		stop_condition = ["National parties"],
+	epg_tag, epg_start, epg_end = info_walk(tag = history_tag, 
+		start_condition = ["Political groups"], 
+		stop_condition = ["National parties"], 
 		I_want = "European Political Groups")
 	if len(epg_tag) == 1 :
 		epg_tag = ''.join(epg_tag)
@@ -395,8 +395,39 @@ for index, link in enumerate(links[1:]): # loop over all links
 	sub.append(sub_tag)
 	sub_debut.append(sub_start)
 	sub_fin.append(sub_end)
-	print ("Chairs:", len(chair[index+1]), "Vice-Chairs:", len(vice[index+1]),
-		"Members:", len(member[index+1]), "Substitutes:", len(sub[index+1]))
+		# chair count
+	if chair[index+1].count(";") == 0:
+		if len(chair[index+1]) > 0:
+			chaircount = 1
+		else:
+			chaircount = 0
+	else:
+		chaircount = chair[index+1].count(";") + 1
+	# vice chair count
+	if vice[index+1].count(";") == 0:
+		if len(vice[index+1]) > 0:
+			vicecount = 1
+		else:
+			vicecount = 0
+	else:
+		vicecount = vice[index+1].count(";") + 1
+	# member count
+	if member[index+1].count(";") == 0:
+		if len(member[index+1]) > 0:
+			membercount = 1
+		else:
+			membercount = 0
+	else:
+		membercount = member[index+1].count(";") + 1
+	# substitute count
+	if sub[index+1].count(";") == 0:
+		if len(sub[index+1]) > 0:
+			subcount = 1
+		else:
+			subcount = 0
+	else:
+		subcount = sub[index+1].count(";") + 1
+	print ("Chairs:", chaircount, "Vice-Chairs:", vicecount, "Members:", membercount, "Substitutes:", subcount)
 	print ("Percent done:", format((index / float(len(links)))*100, '.2f') )
 
 #######################################################################################
