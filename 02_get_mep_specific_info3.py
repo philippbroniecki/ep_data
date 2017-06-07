@@ -141,7 +141,7 @@ def info_walk(tag, start_condition, stop_condition, I_want):
 #############################################################################
 # folders input output
 #############################################################################
-output_dir = "C:\\Users\\phili\\Documents\\GitHub\\ep_data\\output"
+output_dir = "C:\\Users\\phili\\Dropbox\\Dokumente\\London\\UCL\\Dis\\EP data\\output"
 
 # change directory
 os.chdir(output_dir)
@@ -157,19 +157,19 @@ links = list(links)
 ##############################################################################
 # start of parliamentary terms
 # constitutive session are in the beginning of July usually
-# 8th EP: 1 July
-# 7th EP: 14 July
-# 6th EP: 20 July (end 30 July)
-# 5th EP: ?
-# 4th EP: ?
-# 3rd EP: ?
-# 2nd EP: ?
-# 1st EP: ?
-term_start = {1: "01.07.1979", 2: "01.07.1984", 3: "01.07.1989", 4: "01.07.1994",
-5: "01.07.1999", 6: "20.07.2004", 7: "14.07.2009", 8: "01.07.2014"}
+# 8th EP: 01.07.2014
+# 7th EP: 14.07.2009 (end 30.06.2014)
+# 6th EP: 20.07.2004 (end 13.07.2009)
+# 5th EP: 20.07.1999 (end 19.07.2004)
+# 4th EP: 19.07.1994 (end 19.07.1999)
+# 3rd EP: 25.07.1989 (end 18.07.1994)
+# 2nd EP: 24.07.1984 (end 24.07.1989)
+# 1st EP: 17.07.1979 (end 23.07.1984)
+term_start = {1: "17.07.1979", 2: "24.07.1984", 3: "25.07.1989", 4: "19.07.1994",
+5: "20.07.1999", 6: "20.07.2004", 7: "14.07.2009", 8: "01.07.2014"}
 # end of parliamentary terms
-term_end = {1: "30.06.1984", 2: "30.06.1989", 3: "30.06.1994", 4: "30.06.1999",
-5: "30.06.2004", 6: "30.06.2009", 7: "30.06.2014", 8: "30.06.2019"}
+term_end = {1: "23.07.1984", 2: "24.07.1989", 3: "18.07.1994", 4: "19.07.1999",
+5: "19.07.2004", 6: "13.07.2009", 7: "30.06.2014", 8: "30.06.2019"}
 # variable names
 nationality = ["Nationality"]
 birthdate = ["Date_Born"]
@@ -354,8 +354,40 @@ for index, link in enumerate(links[1:]): # loop over all links
 	sub.append(sub_tag)
 	sub_debut.append(sub_start)
 	sub_fin.append(sub_end)
-	print ("Chairs:", len(chair[index+1]), "Vice-Chairs:", len(vice[index+1]),
-		"Members:", len(member[index+1]), "Substitutes:", len(sub[index+1]))
+
+	# chair count
+	if chair[index+1].count(";") == 0:
+		if len(chair[index+1]) > 0:
+			chaircount = 1
+		else:
+			chaircount = 0
+	else:
+		chaircount = chair[index+1].count(";") + 1
+	# vice chair count
+	if vice[index+1].count(";") == 0:
+		if len(vice[index+1]) > 0:
+			vicecount = 1
+		else:
+			vicecount = 0
+	else:
+		vicecount = vice[index+1].count(";") + 1
+	# member count
+	if member[index+1].count(";") == 0:
+		if len(member[index+1]) > 0:
+			membercount = 1
+		else:
+			membercount = 0
+	else:
+		membercount = member[index+1].count(";") + 1
+	# substitute count
+	if sub[index+1].count(";") == 0:
+		if len(sub[index+1]) > 0:
+			subcount = 1
+		else:
+			subcount = 0
+	else:
+		subcount = sub[index+1].count(";") + 1
+	print ("Chairs:", chaircount, "Vice-Chairs:", vicecount, "Members:", membercount, "Substitutes:", subcount)
 	print ("Percent done:", format((index / float(len(links)))*100, '.2f') )
 
 #######################################################################################
